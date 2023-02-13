@@ -3,3 +3,6 @@
 
 # Igmore environment folder
 /env
+
+# Ignore exemption json file
+/exemption.json
