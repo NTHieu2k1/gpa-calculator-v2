@@ -1,0 +1,16 @@
+Bottleneck
+certifi
+et-xmlfile==1.1.0
+mkl-fft==1.3.1
+mkl-random
+mkl-service==2.4.0
+numexpr
+numpy
+openpyxl==3.0.10
+packaging
+pandas
+python-dateutil
+pytz
+six
+wincertstore==0.2
+xlrd
