@@ -261,7 +261,7 @@ def check_exemption_subjects():
             break
         else:
             subject = input(f'Please specify a subject code to {mode}: '
-                            f'(Just first 3 letters of the code)').strip()
+                            f'(Just first 3 letters of the code) ').strip()
             subject = subject[:3].upper()
             exemption_subjects = modes[mode](subject, exemption_subjects)
     _save_exemption_subjects(exemption_subjects)
