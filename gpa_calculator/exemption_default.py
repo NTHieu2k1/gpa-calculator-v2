@@ -1,20 +1,9 @@
 # This contains the list of default exemption subjects
 default_exemption_list = [
-    "ĐNH",
-    "ĐBA",
-    "ĐSA",
-    "ĐNG",
-    "ĐTR",
-    "ĐTB",
-    "TRG",
     "TMI",
     "VOV",
-    "GDQP",
-    "COV",
-    "LAB",
-    "ENT",
+    "GDQP"
+    "LAB"
     "TRS",
-    "OJT",
-    "OJS",
-    "SSS"
+    "OJT"
 ]
