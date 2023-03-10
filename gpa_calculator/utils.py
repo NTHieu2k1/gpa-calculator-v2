@@ -10,7 +10,7 @@ EXEMPTION_FILE = Path(__file__).parent.parent / Path('exemption.json')
 
 def _input_file_path():
     """
-    Ask user to enter a file path (usually the path of user's student transcript Excel file).
+    Ask user to enter a file path (usually the path of user's student transcript Excel file or CSV file).
 
     Returns
     -------
@@ -26,7 +26,7 @@ def _input_file_path():
 
 def _validate_file(file_path):
     """
-    Validate whether the file is the readable Excel file.
+    Validate whether the file is the readable Excel file, or a CSV file.
 
     Parameters
     ----------
@@ -39,20 +39,23 @@ def _validate_file(file_path):
         Whether the file is the readable Excel file or not.
     """
     try:
-        _ = pd.read_excel(file_path)
+        if file_path.endswith('.csv'):
+            _ = pd.read_csv(file_path, encoding='ISO-8859-1')
+        else:
+            _ = pd.read_excel(file_path)
         return True
     except FileNotFoundError:
         print(f'Error: No such file or directory \'{file_path}\'')
         return False
     except ValueError:
-        print('You are opening an unreadable Excel file. Please make it readable before opening.'
+        print('You are opening an unreadable Excel or CSV file. Please make it readable before opening. '
               'Please read the README for details.')
         return False
 
 
 def open_transcript_file():
     """
-    Open and validate a transcript Excel file.
+    Open and validate a transcript Excel file (or CSV file).
 
     Returns
     -------
@@ -66,7 +69,10 @@ def open_transcript_file():
         # Validate the file
         is_validated = _validate_file(file_path)
     # Return the content of the file
-    return pd.read_excel(file_path)
+    if file_path.endswith('.csv'):
+        return pd.read_csv(file_path, encoding='ISO-8859-1')
+    else:
+        return pd.read_excel(file_path)
 
 
 def choose_mode():
