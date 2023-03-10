@@ -2,8 +2,8 @@
 default_exemption_list = [
     "TMI",
     "VOV",
-    "GDQP"
-    "LAB"
+    "GDQP",
+    "LAB",
     "TRS",
     "OJT"
 ]
