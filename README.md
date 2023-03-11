@@ -60,7 +60,7 @@ When you open the tool, please follow the instructions below to calculate
 your GPA score:
 
 - **Step 1**: Specify the path of your pre-processed file (if you have not
-done yet, please follow the [Section 2](#2-how-to-pre-process-the-transcript-excel-file-)
+done yet, please follow the [Section 2](#2-how-to-pre-process-the-transcript-excel-file)
 above).
 - **Step 2**: You can choose either *Overall* or *One semester* mode for
 calculation. If you choose *One semester* mode, make sure that you specify
