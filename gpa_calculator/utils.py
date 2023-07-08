@@ -55,6 +55,9 @@ def _validate_file(file_path):
         print('You are opening an unreadable Excel or CSV file. Please make it readable before opening. '
               'Please read the README for details.')
         return False
+    except:
+        print('Invalid input. Please input again.')
+        return False
 
 
 def open_transcript_file():
