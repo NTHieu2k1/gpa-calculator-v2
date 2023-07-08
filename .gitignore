@@ -6,3 +6,8 @@
 
 # Ignore exemption json file
 /exemption.json
+
+# Ignore output files & folders generated during builds
+/build
+/dist
+*.spec
