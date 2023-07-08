@@ -159,14 +159,18 @@ def _load_exemption_subjects(filename=EXEMPTION_FILE):
     -------
     list
         The list of exemption subjects
+    str
+        The notification indicates load from user preferences (json file) or default
     """
     try:
         with open(filename, 'r') as loader:
             raw_exemption = json.load(loader)
             exemption_list = raw_exemption['exemption_subjects']
+            notify = 'user_pref'
     except FileNotFoundError:
         exemption_list = default_exemption_list
-    return exemption_list
+        notify = 'default'
+    return exemption_list, notify
 
 
 def _display_exemption_subjects(exemption_list):
@@ -258,11 +262,15 @@ def check_exemption_subjects():
     list
         List of exemption subjects
     """
-    exemption_subjects = _load_exemption_subjects()
+    exemption_subjects, notify = _load_exemption_subjects()
     modes = {
         'add': _add_exemption_subject,
         'remove': _remove_exemption_subject
     }
+    if notify == 'user_pref':
+        print('Loaded from user preferences (exemption.json file).')
+    elif notify == 'default':
+        print('User preferences (exemption.json file) not found. Loaded from default list.')
     while True:
         _display_exemption_subjects(exemption_subjects)
         mode = input('Please type \'add\' for adding a subject, or '
@@ -275,6 +283,7 @@ def check_exemption_subjects():
             subject = subject[:3].upper()
             exemption_subjects = modes[mode](subject, exemption_subjects)
     _save_exemption_subjects(exemption_subjects)
+    print('Saved to exemption.json file.')
     return exemption_subjects
 
 
