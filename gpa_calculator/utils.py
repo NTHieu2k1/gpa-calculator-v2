@@ -8,6 +8,10 @@ from gpa_calculator.exemption_default import default_exemption_list
 EXEMPTION_FILE = Path(__file__).parent.parent / Path('exemption.json')
 
 
+def display_logo(logo):
+    print(logo)
+
+
 def _input_file_path():
     """
     Ask user to enter a file path (usually the path of user's student transcript Excel file or CSV file).
