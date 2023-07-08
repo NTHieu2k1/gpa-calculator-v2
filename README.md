@@ -1,4 +1,4 @@
-# GPA Calculator 2.0
+# GPA Calculator v2
 
 This software is a CLI-based tool used to calculate the GPA score for FPT
 University students using their transcript Excel file downloaded from FAP
