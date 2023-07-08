@@ -1,5 +1,5 @@
 from gpa_calculator.art import logo
-from gpa_calculator.utils import (open_transcript_file, choose_mode, select_semester,
+from gpa_calculator.utils import (open_transcript_file, choose_mode, select_semester, display_logo,
                                   check_exemption_subjects, calculating_gpa, display_gpa_score)
 
 
@@ -7,7 +7,7 @@ def main():
     """
     This function contains the main process of the whole calculator.
     """
-    print(logo)
+    display_logo(logo)
 
     # Open & validate student transcript Excel file
     transcript = open_transcript_file()
