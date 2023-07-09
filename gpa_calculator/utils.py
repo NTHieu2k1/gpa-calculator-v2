@@ -63,6 +63,7 @@ def _validate_file(file_path):
 def open_transcript_file():
     """
     Open and validate a transcript Excel file (or CSV file).
+    Or exit when user want to quit
 
     Returns
     -------
@@ -73,6 +74,8 @@ def open_transcript_file():
     while not is_validated:
         # Input file path
         file_path = _input_file_path()
+        if file_path[:] == 'exit' or file_path[:] == 'quit':
+            exit(0)
         # Validate the file
         is_validated = _validate_file(file_path)
     # Return the content of the file
