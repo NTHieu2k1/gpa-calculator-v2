@@ -1,6 +1,7 @@
 from gpa_calculator.art import logo
 from gpa_calculator.utils import (open_transcript_file, choose_mode, select_semester, display_logo,
-                                  check_exemption_subjects, calculating_gpa, display_gpa_score)
+                                  check_exemption_subjects, calculating_gpa, display_gpa_score,
+                                  confirm_again)
 
 
 def main():
@@ -28,7 +29,5 @@ def main():
         display_gpa_score(gpa_score)
 
         # Calculate again, or exit
-        cont = input('Do you want to calculate again? (Y/N) ')
-        if cont[0].upper() == 'N':
+        if not confirm_again():
             break
-        print()

@@ -366,3 +366,11 @@ def display_gpa_score(gpa_score):
     None
     """
     print(f'Your GPA score is: {gpa_score:.2f}')
+
+
+def confirm_again():
+    """
+    Ask user to calculate again, or exit.
+    """
+    cont = input('Do you want to calculate again? (Y/N) ').strip()
+    return cont[0].upper() == 'Y'
