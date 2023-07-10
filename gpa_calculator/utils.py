@@ -7,6 +7,9 @@ from gpa_calculator.exemption_default import default_exemption_list
 
 EXEMPTION_FILE = Path(__file__).parent.parent / Path('exemption.json')
 
+COLUMNS_FORMAT = np.array(['No', 'Term', 'Semester', 'Subject Code', 'prerequisite',
+                           'Replaced Subject', 'Subject Name', 'Credit', 'Grade', 'Status'])
+
 
 def display_logo(logo):
     print(logo)
@@ -21,16 +24,16 @@ def _input_file_path():
     str
         The file path user specified.
     """
-    file_path = input('Please enter the path of your transcript: ')
+    file_path = input('Please enter the path of your transcript: ').strip()
     quotes_marks = ['\'', '"']
     if file_path[0] in quotes_marks and file_path[-1] in quotes_marks:
         file_path = file_path[1:-1]
     return file_path
 
 
-def _validate_file(file_path):
+def _load_file(file_path):
     """
-    Validate whether the file is the readable Excel file, or a CSV file.
+    Load the file with the path specified.
 
     Parameters
     ----------
@@ -39,25 +42,29 @@ def _validate_file(file_path):
 
     Returns
     -------
-    bool
-        Whether the file is the readable Excel file or not.
+    pd.DataFrame
+        The content of the transcript file (if validated) or None otherwise
     """
+    contents = None
     try:
         if file_path.endswith('.csv'):
-            _ = pd.read_csv(file_path, encoding='ISO-8859-1')
+            contents = pd.read_csv(file_path, encoding='ISO-8859-1')
         else:
-            _ = pd.read_excel(file_path)
-        return True
+            contents = pd.read_excel(file_path)
+        if np.array_equal(contents.columns, COLUMNS_FORMAT):
+            return contents
+        else:
+            return None
     except FileNotFoundError:
         print(f'Error: No such file or directory \'{file_path}\'')
-        return False
+        return None
     except ValueError:
         print('You are opening an unreadable Excel or CSV file. Please make it readable before opening. '
               'Please read the README for details.')
-        return False
+        return None
     except:
         print('Invalid input. Please input again.')
-        return False
+        return None
 
 
 def open_transcript_file():
@@ -70,6 +77,7 @@ def open_transcript_file():
     DataFrame
         The content of the transcript file (in Pandas DataFrame format)
     """
+    content = None
     is_validated = False
     while not is_validated:
         # Input file path
@@ -77,12 +85,10 @@ def open_transcript_file():
         if file_path[:] == 'exit' or file_path[:] == 'quit':
             exit(0)
         # Validate the file
-        is_validated = _validate_file(file_path)
+        content = _load_file(file_path)
+        is_validated = content is not None
     # Return the content of the file
-    if file_path.endswith('.csv'):
-        return pd.read_csv(file_path, encoding='ISO-8859-1')
-    else:
-        return pd.read_excel(file_path)
+    return content
 
 
 def choose_mode():
@@ -94,14 +100,19 @@ def choose_mode():
     str
         The mode user has chosen
     """
-    print('There are 2 modes available:\n1 - Overall\n2 - One semester')
-    mode = input('Please choose mode by typing mode name or just a number (1/2): ')
-    mode_dict = {
-        '1': 'overall',
-        '2': 'one semester'
-    }
-    if mode == '1' or mode == '2':
-        mode = mode_dict[mode]
+    is_validated = False
+    while not is_validated:
+        print('There are 2 modes available:\n1 - Overall\n2 - One semester')
+        mode = input('Please choose mode by typing mode name or just a number (1/2): ').strip()
+        mode_dict = {
+            '1': 'overall',
+            '2': 'one semester'
+        }
+        if mode == '1' or mode == '2':
+            mode = mode_dict[mode]
+            is_validated = True
+            continue
+        print('Invalid input. Please input again.')
     return mode.lower()
 
 
@@ -147,8 +158,14 @@ def select_semester():
     str
         The semester name user has chosen
     """
-    semester_name = input('Please enter semester you want to select: ')
-    semester_name = _format_semester_name(semester_name)
+    is_validated = False
+    while not is_validated:
+        semester_name = input('Please enter semester you want to select: ').strip()
+        try:
+            semester_name = _format_semester_name(semester_name)
+            is_validated = True
+        except:
+            print('Invalid input. Please input again.')
     return semester_name
 
 
@@ -280,9 +297,11 @@ def check_exemption_subjects():
     while True:
         _display_exemption_subjects(exemption_subjects)
         mode = input('Please type \'add\' for adding a subject, or '
-                     '\'remove\' for removing a subject, or \'ok\' to proceed: ')
+                     '\'remove\' for removing a subject, or \'ok\' to proceed: ').strip()
         if mode == 'ok':
             break
+        elif mode != 'add' and mode != 'remove':
+            print('Invalid input. Please input again.')
         else:
             subject = input(f'Please specify a subject code to {mode}: '
                             f'(Just first 3 letters of the code) ').strip()
