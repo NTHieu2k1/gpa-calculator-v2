@@ -5,5 +5,6 @@ default_exemption_list = [
     "GDQP",
     "LAB",
     "TRS",
-    "OJT"
+    "OJT",
+    "LUK"
 ]
