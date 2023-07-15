@@ -14,13 +14,13 @@ source code zip file). After that, you just need to extract the zip file,
 go to the folder where you have just extracted the file, and click on the
 .exe file in it. And then, you are good to go.
 
-## 2. How to pre-process the transcript Excel file:
+## 2. How to process the transcript Excel file:
 After downloading a transcript Excel file from FAP website, it is **CRUCIAL**
-to pre-process the file before putting into the tool, because the original
+to process the file before putting into the tool, because the original
 file cannot be properly read (due to incorrect format) and may lead to errors
 in calculation.
 
-To pre-process the original transcript file, please following the steps:
+To process the original transcript file, please following the steps:
 
 - **Step 1**: Open the file in Excel. When you see the notification below,
 click "Yes".
@@ -32,11 +32,17 @@ below, click "No". A *Save As* window will appear, just save a new file.
 
 ![](/images/preprocess_step_2.png)
 
+**Note**: When saving a new file, saving to CSV format is recommended. If
+you save into XLSX format, the pre-compiled binary version of the tool
+cannot load the file due to dependency error. If you still want to save
+to that format, you should run the tool from source instead. Refer to
+[Section 4](#4-how-to-run-from-source) below for specific steps.
+
 ## 3. How to calculate the GPA score:
 When you open the tool, please follow the instructions below to calculate
 your GPA score:
 
-- **Step 1**: Specify the path of your pre-processed file (if you have not
+- **Step 1**: Specify the path of your processed file (if you have not
 done yet, please follow the [Section 2](#2-how-to-pre-process-the-transcript-excel-file)
 above).
 - **Step 2**: You can choose either *Overall* or *One semester* mode for
