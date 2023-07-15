@@ -25,6 +25,8 @@ def _input_file_path():
         The file path user specified.
     """
     file_path = input('Please enter the path of your transcript: ').strip()
+    if file_path == '':
+        return None
     quotes_marks = ['\'', '"']
     if file_path[0] in quotes_marks and file_path[-1] in quotes_marks:
         file_path = file_path[1:-1]
@@ -54,6 +56,7 @@ def _load_file(file_path):
         if np.array_equal(contents.columns, COLUMNS_FORMAT):
             return contents
         else:
+            print('Data format not supported. Please choose an another file.')
             return None
     except FileNotFoundError:
         print(f'Error: No such file or directory \'{file_path}\'')
@@ -82,6 +85,10 @@ def open_transcript_file():
     while not is_validated:
         # Input file path
         file_path = _input_file_path()
+        # No input -> input again
+        if not file_path:
+            print('No input detected. Please input again.')
+            continue
         if file_path[:] == 'exit' or file_path[:] == 'quit':
             exit(0)
         # Validate the file
@@ -305,8 +312,11 @@ def check_exemption_subjects():
         else:
             subject = input(f'Please specify a subject code to {mode}: '
                             f'(Just first 3 letters of the code) ').strip()
-            subject = subject[:3].upper()
-            exemption_subjects = modes[mode](subject, exemption_subjects)
+            try:
+                subject = subject[:3].upper()
+                exemption_subjects = modes[mode](subject, exemption_subjects)
+            except:
+                print('Invalid input. Failed to perform the operation.')
     _save_exemption_subjects(exemption_subjects)
     print('Saved to exemption.json file.')
     return exemption_subjects
@@ -372,5 +382,11 @@ def confirm_again():
     """
     Ask user to calculate again, or exit.
     """
-    cont = input('Do you want to calculate again? (Y/N) ').strip()
+    is_validated = False
+    while not is_validated:
+        cont = input('Do you want to calculate again? (Y/N) ').strip()
+        if cont != '' and (cont[0].upper() == 'Y' or cont[0].upper() == 'N'):
+            is_validated = True
+            continue
+        print('Invalid input. Please input again')
     return cont[0].upper() == 'Y'
