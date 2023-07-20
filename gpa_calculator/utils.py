@@ -50,7 +50,10 @@ def _load_file(file_path):
     contents = None
     try:
         if file_path.endswith('.csv'):
-            contents = pd.read_csv(file_path, encoding='ISO-8859-1')
+            try:
+                contents = pd.read_csv(file_path)
+            except UnicodeDecodeError:
+                contents = pd.read_csv(file_path, encoding='ISO-8859-1')
         else:
             contents = pd.read_excel(file_path)
         if np.array_equal(contents.columns, COLUMNS_FORMAT):
