@@ -367,13 +367,13 @@ def check_exemption_subjects():
     return exemption_subjects
 
 
-def calculating_gpa(transcript_data, mode, exemption_list, semester_name=None):
+def calculating_gpa(transcript_data_orig, mode, exemption_list, semester_name=None):
     """
     Calculate the GPA score (this is the heart of the GPA calculator).
 
     Parameters
     ----------
-    transcript_data: DataFrame
+    transcript_data_orig: DataFrame
         The content of the transcript
     mode: str
         The mode for calculation (overall/one semester)
@@ -387,13 +387,14 @@ def calculating_gpa(transcript_data, mode, exemption_list, semester_name=None):
     float
         The final GPA score
     """
+    transcript_data = transcript_data_orig.copy()
     # Remove exemption subjects from the transcript data
     for subject in exemption_list:
         indexes = transcript_data[transcript_data['Subject Code'].str.find(subject) > -1].index
         transcript_data.drop(indexes, axis=0, inplace=True)
     # Retrieve only subset of transcript of a specified semester when "one semester" mode is applied
     if mode == "one semester" and semester_name:
-        transcript_data = transcript_data[transcript_data['Semester'] == semester_name]
+        transcript_data.query('Semester == @semester_name', inplace=True)
     elif mode == "one semester" and semester_name is None:
         print('You chose \'one semester\' mode but did not specify semester name.')
         return None
