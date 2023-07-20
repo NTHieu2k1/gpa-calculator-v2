@@ -70,6 +70,48 @@ def _load_file(file_path):
         return None
 
 
+def _unify_n_fillna(content):
+    """
+    Unify the content to one single-table structure (if there is a sub-table in the content,
+    as well as fill missing data (on Credits and Grades).
+
+    Parameters
+    ----------
+    content: pd.DataFrame
+        The raw content of the transcript file
+
+    Returns
+    -------
+    DataFrame
+        Clean, unified transcript content
+    """
+    # Unify if there is a sub-table in the content (separated by a space/NaN line)
+    space_idx = content[content.No.isna()].index
+    if len(space_idx) > 0:
+        size_orig = len(content)
+        for i in range(2):
+            content.drop(space_idx, axis=0, inplace=True)
+            space_idx += 1
+
+        sub_idx = pd.RangeIndex(space_idx.values[0], size_orig, 1)
+        source = ['Subject Name', 'Replaced Subject', 'prerequisite', 'Subject Code', 'Semester', 'Term']
+        dest = ['Status', 'Grade', 'Credit', 'Subject Name', 'Subject Code', 'Semester']
+
+        for i in range(len(source)):
+            content.loc[sub_idx, dest[i]] = content.loc[sub_idx, source[i]]
+
+        content.loc[sub_idx, 'Term'] = 0
+        content.loc[sub_idx, 'prerequisite'] = np.nan
+        content.loc[sub_idx, 'Replaced Subject'] = np.nan
+
+    # Fill missing credits & grades
+    missing_credit_idx = content[content.Credit.isna()].index
+    missing_grade_idx = content[content.Grade.isna()].index
+    content.loc[missing_credit_idx, 'Credit'] = 0
+    content.loc[missing_grade_idx, 'Grade'] = 0
+    return content
+
+
 def open_transcript_file():
     """
     Open and validate a transcript Excel file (or CSV file).
@@ -95,7 +137,7 @@ def open_transcript_file():
         content = _load_file(file_path)
         is_validated = content is not None
     # Return the content of the file
-    return content
+    return _unify_n_fillna(content)
 
 
 def choose_mode():
