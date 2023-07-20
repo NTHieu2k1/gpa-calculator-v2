@@ -349,7 +349,9 @@ def check_exemption_subjects():
     while True:
         _display_exemption_subjects(exemption_subjects)
         mode = input('Please type \'add\' for adding a subject, or '
-                     '\'remove\' for removing a subject, or \'ok\' to proceed: ').strip()
+                     '\'remove\' for removing a subject, or \'ok\' to proceed (default is \'ok\'): ').strip()
+        if mode == '':
+            mode = 'ok'
         if mode == 'ok':
             break
         elif mode != 'add' and mode != 'remove':
