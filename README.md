@@ -32,12 +32,6 @@ below, click "No". A *Save As* window will appear, just save a new file.
 
 ![](/images/preprocess_step_2.png)
 
-**Note**: When saving a new file, saving to CSV format is recommended. If
-you save into XLSX format, the pre-compiled binary version of the tool
-cannot load the file due to dependency error. If you still want to save
-to that format, you should run the tool from source instead. Refer to
-[Section 4](#4-how-to-run-from-source) below for specific steps.
-
 ## 3. How to calculate the GPA score:
 When you open the tool, please follow the instructions below to calculate
 your GPA score:
