@@ -402,6 +402,11 @@ def calculating_gpa(transcript_data_orig, mode, exemption_list, semester_name=No
     elif mode == "one semester" and semester_name is None:
         print('You chose \'one semester\' mode but did not specify semester name.')
         return None
+    # Retrieve only already passed subjects for calculation
+    passed = 'Passed'
+    passed_with_cond = 'Passed (with conditions)'
+    transcript_data.query('Status == @passed or Status == @passed_with_cond',
+                          inplace=True)
     # Return 0 immediately when there is no subjects for calculation
     if len(transcript_data) == 0:
         return 0
