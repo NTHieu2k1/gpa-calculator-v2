@@ -212,7 +212,7 @@ def select_semester():
     """
     is_validated = False
     while not is_validated:
-        semester_name = input('Please enter semester you want to select: ').strip()
+        semester_name = input('Please specify the semester name: ').strip()
         try:
             semester_name = _format_semester_name(semester_name)
             is_validated = True
