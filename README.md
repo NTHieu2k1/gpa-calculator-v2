@@ -32,6 +32,11 @@ below, click "No". A *Save As* window will appear, just save a new file.
 
 ![](/images/preprocess_step_2.png)
 
+**Note**: The tool only supports 3 main Excel formats:
+* **XLSX**
+* **XLS**
+* **CSV**
+
 ## 3. How to calculate the GPA score:
 When you open the tool, please follow the instructions below to calculate
 your GPA score:
