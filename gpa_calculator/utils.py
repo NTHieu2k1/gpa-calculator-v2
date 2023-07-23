@@ -198,6 +198,8 @@ def _format_semester_name(semester_name):
         formatted_name_ls.append('20' + numbers_ls[-1])
     elif len(numbers_ls[-1]) == 4:
         formatted_name_ls.append(numbers_ls[-1])
+    if len(formatted_name_ls) != 2:
+        raise ValueError('Invalid semester name')
     return ''.join(formatted_name_ls)
 
 
