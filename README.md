@@ -46,7 +46,7 @@ done yet, please follow the [Section 2](#2-how-to-pre-process-the-transcript-exc
 above).
 - **Step 2**: You can choose either *Overall* or *One semester* mode for
 calculation. If you choose *One semester* mode, make sure that you specify
-the semester's name (i.e. Fall 2022).
+the semester name (for example, Fall 2022, Fall2022 or FA22).
 - **Step 3**: Review the exemption subjects. These subjects would not be
 used in the calculation process. You can add or remove subjects to the
 list (if do so, just specify the first 3 letters of the subject code).
