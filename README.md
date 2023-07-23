@@ -14,13 +14,13 @@ source code zip file). After that, you just need to extract the zip file,
 go to the folder where you have just extracted the file, and click on the
 .exe file in it. And then, you are good to go.
 
-## 2. How to process the transcript Excel file:
+## 2. How to re-format the transcript Excel file:
 After downloading a transcript Excel file from FAP website, it is **CRUCIAL**
-to process the file before putting into the tool, because the original
+to re-format the file before putting into the tool, because the original
 file cannot be properly read (due to incorrect format) and may lead to errors
 in calculation.
 
-To process the original transcript file, please following the steps:
+To re-format the original transcript file, please following the steps:
 
 - **Step 1**: Open the file in Excel. When you see the notification below,
 click "Yes".
@@ -41,7 +41,7 @@ below, click "No". A *Save As* window will appear, just save a new file.
 When you open the tool, please follow the instructions below to calculate
 your GPA score:
 
-- **Step 1**: Specify the path of your processed file (if you have not
+- **Step 1**: Specify the path of your reformatted file (if you have not
 done yet, please follow the [Section 2](#2-how-to-pre-process-the-transcript-excel-file)
 above).
 - **Step 2**: You can choose either *Overall* or *One semester* mode for
