@@ -4,6 +4,8 @@ import pandas as pd
 import re
 from pathlib import Path
 from gpa_calculator.exemption_default import default_exemption_list
+import tkinter as tk
+from tkinter import filedialog as fd
 
 EXEMPTION_FILE = Path(__file__).parent.parent / Path('exemption.json')
 
@@ -74,6 +76,33 @@ def _load_file(file_path):
         return None
 
 
+def _select_file():
+    """
+    Ask user to select the transcript file, in the GUI manner.
+
+    Returns
+    -------
+    str
+        The path of the selected file
+    """
+    file_types = (
+        ('Microsoft Excel files', '*.xls;*.xlsx'),
+        ('CSV files', '*.csv')
+    )
+    print('Selecting file...', end=' ')
+    win = tk.Tk()
+    try:
+        file_path = fd.askopenfilenames(title='Open a file', initialdir='/', filetypes=file_types)[0]
+        print('Done')
+        print(f'Loading content from {file_path}')
+        win.destroy()
+        return file_path
+    except IndexError:
+        print('Failed')
+        win.destroy()
+        return None
+
+
 def _unify_n_fillna(content):
     """
     Unify the content to one single-table structure (if there is a sub-table in the content,
@@ -133,7 +162,7 @@ def open_transcript_file():
     is_validated = False
     while not is_validated:
         # Input file path
-        file_path = _input_file_path()
+        file_path = _select_file()
         # No input -> input again
         if not file_path:
             print('No input detected. Please input again.')
