@@ -65,9 +65,10 @@ def _load_file(file_path):
         print(f'Error: No such file or directory \'{file_path}\'')
         return None
     except ValueError:
-        print('You are opening an unreadable Excel or CSV file. Please make it readable before opening. '
-              'Please read the README for details.')
-        return None
+        # Read the raw, downloaded transcript file
+        contents = pd.read_html(file_path)[0]
+        contents.columns = COLUMNS_FORMAT
+        return contents
     except:
         print('Invalid input. Please input again.')
         return None
@@ -90,12 +91,15 @@ def _unify_n_fillna(content):
     """
     # Unify if there is a sub-table in the content (separated by a space/NaN line)
     space_idx = content[content.No.isna()].index
+    size_orig = len(content)
     if len(space_idx) > 0:
-        size_orig = len(content)
         for i in range(2):
             content.drop(space_idx, axis=0, inplace=True)
             space_idx += 1
+    else:
+        space_idx = content[content.Status.isna()].index
 
+    if len(space_idx) > 0:
         sub_idx = pd.RangeIndex(space_idx.values[0], size_orig, 1)
         source = ['Subject Name', 'Replaced Subject', 'prerequisite', 'Subject Code', 'Semester', 'Term']
         dest = ['Status', 'Grade', 'Credit', 'Subject Name', 'Subject Code', 'Semester']
