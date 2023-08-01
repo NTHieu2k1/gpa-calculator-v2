@@ -14,11 +14,26 @@ source code zip file). After that, you just need to extract the zip file,
 go to the folder where you have just extracted the file, and click on the
 .exe file in it. And then, you are good to go.
 
-## 2. How to re-format the transcript Excel file:
-After downloading a transcript Excel file from FAP website, it is **CRUCIAL**
-to re-format the file before putting into the tool, because the original
-file cannot be properly read (due to incorrect format) and may lead to errors
-in calculation.
+## 2. How to calculate the GPA score:
+When you open the tool, please follow the instructions below to calculate
+your GPA score:
+
+- **Step 1**: Select your transcript file (**original**/**re-formatted**).
+- **Step 2**: You can choose either *Overall* or *One semester* mode for
+calculation. If you choose *One semester* mode, make sure that you specify
+the semester name (for example, Fall 2022, Fall2022 or FA22).
+- **Step 3**: Review the exemption subjects. These subjects would not be
+used in the calculation process. You can add or remove subjects to the
+list (if do so, just specify the first 3 letters of the subject code).
+
+Now the tool will calculate the GPA score for you, based on your selection,
+and display the final score.
+
+## 3. How to re-format your transcript Excel file:
+**Notice**: From version 2.3, re-formatting is **NOT** required anymore,
+as the tool now supports original transcript files which is directly
+downloaded from FAP. Therefore, you can use the tool directly without
+re-formatting your transcript file.
 
 To re-format the original transcript file, please following the steps:
 
@@ -36,23 +51,6 @@ below, click "No". A *Save As* window will appear, just save a new file.
 * **XLSX**
 * **XLS**
 * **CSV**
-
-## 3. How to calculate the GPA score:
-When you open the tool, please follow the instructions below to calculate
-your GPA score:
-
-- **Step 1**: Specify the path of your reformatted file (if you have not
-done yet, please follow the [Section 2](#2-how-to-pre-process-the-transcript-excel-file)
-above).
-- **Step 2**: You can choose either *Overall* or *One semester* mode for
-calculation. If you choose *One semester* mode, make sure that you specify
-the semester name (for example, Fall 2022, Fall2022 or FA22).
-- **Step 3**: Review the exemption subjects. These subjects would not be
-used in the calculation process. You can add or remove subjects to the
-list (if do so, just specify the first 3 letters of the subject code).
-
-Now the tool will calculate the GPA score for you, based on your selection,
-and display the final score.
 
 ## 4. How to run from source:
 
